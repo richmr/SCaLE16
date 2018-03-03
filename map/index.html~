@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!--Import Google Icon Font-->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<!--Import materialize.css-->
+	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+	<link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	 
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<meta charset="utf-8" />
+<title>SCaLE 16 Tech Map</title>
+</head>
+<body>
+	<!-- <div class="container"> -->
+		<!-- Everything should be in a single row.. -->
+		<div class="row">
+			<!-- Main page area -->
+			<!-- Left bar area/spacer -->
+			<div class="col s1">
+			</div>
+			<!-- Top action bar over the main table -->
+			<div class="col s9">
+				<br><br>
+				<div class="col s2 valign-wrapper">
+					<!-- <i class="small material-icons">undo</i>
+					<i class="small material-icons">redo</i>	 -->	
+				</div>
+				<div class="col s8  center-align">
+						<h5><span id="mapName" class="center-align">Convention Center Overview</span></h5>  <!-- <i class="small material-icons">arrow_drop_down</i> -->
+				</div>
+				<div class="col s2 valign-wrapper">
+					<!--<a class="waves-effect modal-trigger" href="#MVPAboutModal">
+						<i id="info" class="small material-icons action-icons" style="padding-right:5px">info_outline</i>
+					</a>
+					<input type="file" id="pickDataFile" name="upload" style="visibility: hidden; width: 1px; height: 1px" />
+					<a class="waves-effect" href="#!">
+						<i id="load_data" class="small material-icons action-icons" style="padding-right:5px">folder_open</i>
+					</a>
+					<a class="waves-effect" href="#!">
+						<i id="save_data" class="small material-icons action-icons">save</i>
+					</a>
+					<a class="waves-effect" href="#!">
+						<i id="guest_list" class="small material-icons action-icons">list</i>
+					</a>-->
+				</div>
+				<!-- Main Map Data Here -->
+					<br>
+					<div id="displayedMap" class="center-align">
+						<div id="overviewmap">
+							<img src="images/pasadena-convention-center-map.jpg" alt="Convention Center" usemap="#convcentermap">
+							<map name="convcentermap">
+								<area id="confcenter-click" shape="rect" coords="57,328,216,443" alt="Click to zoom" href="#confcenterzoom">
+								<area id="exhibithall-click" shape="rect" coords="491,114,653,312" alt="Click to zoom" href="#exhibithallzoom">
+								<area id="ballroom-click" shape="rect" coords="476,325,646,421" alt="Click to zoom" href="#ballroomzoom">
+							</map>
+						</div>
+						<br>
+						<div id="confcentermap">
+							<img src="images/conference-center-upper.jpg" alt="Convention Center upper">
+							<br>
+							<img src="images/conference-center-lower.jpg" alt="Convention Center Lower">
+						</div>
+						<div id="exhibithallmap">
+							<img src="images/exhibit-halls-a-b.jpg" alt="Convention Center upper">
+						</div>
+						<div id="ballroommap">
+							<img src="images/ballroom-layout.jpg" alt="Convention Center upper">
+						</div>
+						<p id="mainMapShow">
+							<a id="mainMapShow_button" class="waves-effect waves-light btn blue lighten-2 white-text">Return to Overview</a>
+						</p>
+						
+					</div>
+					
+									
+			</div>
+			
+			<!-- Side menu -->
+			<div class="col s2">
+				<br>
+				<p><div class="username"><h5>Username</h5></div></p>
+				<p><a id="monitor_mode" class="waves-effect waves-light btn blue lighten-2 white-text">Monitor</a></p>
+				<p><a id="configure_mode" class="waves-effect waves-light btn blue lighten-2 white-text">Configure</a></p>
+			</div>
+			
+			<!-- Archive Modal Definition -->
+			<div id="archiveModal" class="modal">
+				<div id="archiveModal-content" class="modal-content">
+			      <span id="archiveModal-header"><h5>Click a guest to seat them</h5></span>
+			      <div id="archivePool">
+			      <!-- Chips added here  -->
+			      </div>     
+			    </div>
+			    <div class="modal-footer">
+				      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+			    </div>
+		    </div>
+		
+			    
+		    <!-- Load Modal Definition -->
+			<!-- <div id="loadDataModal" class="modal">
+				<div id="loadDataModal-content" class="modal-content">
+			      <span id="loadDataModal-header"><h5>Load Seating Data</h5></span>
+			      <div id="loadDataModal-message">Paste your data below</div>
+			      <textarea id="loadDataField" class="load-modal">
+					</textarea>
+			    </div>
+			    <div class="modal-footer">
+			    		<a href="#!" id="updateData" class="waves-effect waves-green btn-flat">Update</a>
+				      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+			    </div>
+		    </div> -->
+		    
+			<!-- Data load results modal -->		    
+		    <div id="dataAnalysisModal" class="modal">
+				<div id="dataAnalysisModal-content" class="modal-content">
+			      <span id="dataAnalysisModal-header"><h5>Examining your party..</h5></span>
+			      <ul class="collection" id="dataAnalysis-collection">
+			      	<li class="collection-item" id="dataAnalysis-jsoncheck"><div>Data properly formatted..<span class="secondary-content"><i id="dataAnalysis-jsoncheck-check" class="material-icons grey-text">check_circle</i></span></div></li>
+			      </ul>
+			      <div class="progress">
+      				<div id="dataAnalysisModal-progress" class="indeterminate"></div>
+  					</div>
+			    </div>
+			    <div id="dataAnalysisModal-footer" class="modal-footer">
+			    	<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+			    </div>
+		    </div>
+		    
+		    <!-- Save Modal Definition -->
+			<div id="saveDataModal" class="modal save-modal">
+				<div id="saveDataModal-content" class="modal-content">
+			      <span id="saveDataModal-header"><h5>Party Saved!</h5></span>
+			      <div id="saveDataModal-message">Your party has been saved to your web cache and downloaded as "<span id="saveDataFilename">filename</span>".<br>
+			      </div>
+			    </div>
+			    <div class="modal-footer">
+				      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+			    </div>
+		    </div>
+		    
+		    <!-- saveProjects Modal Definition -->
+			<div id="saveProjectsModal" class="modal">
+				<div id="saveProjectsModal-content" class="modal-content">
+			      <span id="saveProjectsModal-header"><h5>Can't delete this table</h5></span>
+			      There are guests seated here! Please re-assign these guests.    
+			    </div>
+			    <div class="modal-footer">
+				      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+			    </div>
+		    </div>
+		    
+		    <!-- Log in Modal Definition -->
+			<div id="loginModal" class="modal">
+				<div id="loginModal-content" class="modal-content">
+			      <span id="loginModal-header"><h5>Log in</h5></span>
+			      <div class="row">
+    					<form action="#" class="col s12">
+    						<div class="row">
+        						<div class="input-field col s6">
+        							<input placeholder="Login ID" id="loginModal-login" type="text" >
+          						<!-- <label for="editProject-Title">Project Title</label> -->
+        						</div>
+        						<div class="input-field col s6">
+        							<input placeholder="Password" id="loginModal-password" type="text" >
+          						<!-- <label for="editProject-Title">Project Title</label> -->
+        						</div>
+        					</div>
+        				</form>
+			    </div>
+			    <div class="modal-footer">
+				     <!-- <a id="addANote" href="#!" class="waves-effect waves-green btn-flat">Notes</a> -->
+				      <a id="loginModal-loginbutton" href="#!" class="waves-effect waves-green btn-flat">Log in</a>
+				      <a id="loginModal-cancel" href="#!" class="waves-effect waves-green btn-flat">Cancel</a>
+			    </div>
+		    </div>
+		  </div>					
+		
+				
+			<!-- MVP Warning modal -->		    
+		    <div id="MVPAboutModal" class="modal">
+				<div id="MVPAboutModal-content" class="modal-content">
+			      <span id="MVPAboutModal-header"><h5>About Seats Local</h5></span>
+			      <p>The purpose of Seats is to allow you to plan the seating for a party you are hosting.  Each row represents a table, and you can drag and drop guests to the table you want.
+			      You can also just keep them stored in the "Unseated Guests" pool for now.  Use the color settings when you define your guests to help keep track of odd seating issues (like adults on the wrong table).</p>  
+			      <p>Click on the <i class="small material-icons action-icons">list</i> to get a nice seating list for your party</p>
+			      <p>This version of Seats is fully functional but only stores your party data on your local machine.</p>
+			      <p><h5 class="red-text">Please click the <i class="small material-icons action-icons">save</i>!</h5></p>
+			      <!-- <a href="https://goo.gl/4k5A9j" target="_blank">The Priorities manual can be found here</a></p> -->
+			      <p>Seats has only been tested in Chrome on a desktop.  Mobile touch screen tests have not gone well.</p>
+			      <p>Copyright 2018, Michael Rich</p>
+			      <p><a href="https://twitter.com/miketofet" target="_blank">Contact me on Twitter</a></p>
+			        
+			   </div>
+			    <div id="MVPAboutModal-footer" class="modal-footer">
+				   <a href="#!" class="modal-action modal-close waves-effect waves-green btn green white-text">Ok</a>
+			    </div>
+		    </div>
+		    
+			<!-- MVP Warning modal -->		    
+		    <div id="resetTableModal" class="modal">
+				<div id="resetTableModal-content" class="modal-content">
+			      <span id="resetTableModal-header"><h5>Reset Your Party?!</h5></span>
+			      Click the confirmation button below to reset all of your data<br>
+			      Or click Cancel.
+			   </div>
+			    <div id="resetTableModal-footer" class="modal-footer">
+				   <a id="confirmResetTable" href="#!" class="waves-effect waves-red btn-flat red white-text">Confirm Reset</a>
+				   <a href="#!" class="modal-action modal-close waves-effect btn-flat">Cancel</a>
+			    </div>
+		    </div>
+		    
+			
+			
+		</div>
+	<script type="text/javascript" src="js/conferenceMap.js"></script>
+	<script type="text/javascript" src="js/globalVars.js"></script>
+	<script type="text/javascript" src="js/dataManagement.js"></script>
+	<script type="text/javascript" src="js/loadData-modal.js"></script>
+	<script type="text/javascript" src="js/lodash.js"></script>	
+	<script type="text/javascript" src="js/mapStartup.js"></script>
+	<script type="text/javascript" src="js/materialize.min.js"></script>
+</body>
+</html>
