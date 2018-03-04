@@ -18,6 +18,8 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 var map;
 var APMarkerLayer = false;
+var origMapSize = [];
+var mode = "monitor";
 
 function initializeMap() {
 	 // Map views always need a projection.  Here we just want to map image
@@ -62,12 +64,22 @@ function initializeMap() {
 	// Map starts on Monitor mode
 	clickedOnMonitorMode();
 	
+	// Map does funny things when screen resized.  Let's grab the original size to restore it later
+	origMapSize = map.getSize();
 	
+	// Establish a resize listener
+	$(window).resize(function() {
+		// Get current width
+		var currSize = map.getSize();
+		map.setSize([currSize[0], origMapSize[1]]);
+	});
 	
+	// Establish map click
 	map.on('click', function (event) {
 		//var coord = map.getCoordinateFromPixel(event.pixel);
-		markerTest(event.pixel);
-	});
+		mapClick(event.pixel);
+	});	
+	
 }
 
 function clickedOnMonitorMode() {
@@ -75,6 +87,8 @@ function clickedOnMonitorMode() {
 	$("#configure_mode").removeClass("disabled");
 	$("#unplacedAPDetailedData").hide();
 	$("#activeAPDetailedData").show();
+	mode = "monitor";
+	console.log("Monitor mode activated");
 } 
 
 function clickedOnConfigureMode() {
@@ -82,12 +96,51 @@ function clickedOnConfigureMode() {
 	$("#configure_mode").addClass("disabled");
 	$("#unplacedAPDetailedData").show();
 	$("#activeAPDetailedData").hide();
-	map.off('click');
-	map.on('click', function (event) {
-		//var coord = map.getCoordinateFromPixel(event.pixel);
-		markerTest(event.pixel);
-	});
+	mode = "configure";
+	console.log("configure mode activated");
 } 
+
+function mapClick(pixelCoords) {
+	if (mode=="monitor") {
+		mapClickMonitor(pixelCoords);
+	} else if (mode == "configure") {
+		mapClickConfigure(pixelCoords);
+	}
+}
+
+function mapClickConfigure(pixelCoords) {
+	// Check if there is an unplaced AP already selected
+	console.log("mapClickConfigure.. click.");
+	if (selectedAPid = $(".active", $("#unplacedAPDetailedData")).data("origID")) {
+		// Then we place a marker at the map location
+		// Just make it green.  Data will update eventually
+		coord = map.getCoordinateFromPixel(pixelCoords);	
+		addAPMarker(coord, selectedAPid);
+		// Update the AP List
+		thisAP = _.find(APList, ['id', selectedAPid]);
+		thisAP["mapCoord"]=coord;
+		newAPdata();
+	} else if (map.hasFeatureAtPixel(pixelCoords)) {
+		// Pop open edit AP modal
+		// Set ID of feature found
+		var thisFeature = map.getFeaturesAtPixel(pixelCoords)[0];
+		$("#editAPModal").data("id", thisFeature.getId());
+		$("#editAPModal").modal("open");	
+	}
+}
+	
+function mapClickMonitor(pixelCoords) {
+	// Basically trigger the accordian in the data display
+	if (map.hasFeatureAtPixel(pixelCoords)) {
+		console.log("mapClickMonitor.. click.");
+		var thisFeature = map.getFeaturesAtPixel(pixelCoords)[0];
+		// get the Id
+		var id = thisFeature.getId();
+		var queryid = id.split(" ").join("_");
+		var headerid = queryid+"_header";
+		$("#"+headerid).click();
+	}
+}	
 
 function newAPdata() {
 	// Goes through all APs
@@ -153,6 +206,17 @@ function newAPdata() {
 function monitorClick(pixelCoords) {
 	// Clicked on the map in monitor mode
 	
+}
+
+function removeAPMarker(id) {
+	if (thisAPMarker = APMarkerLayer.getSource().getFeatureById(id)) {
+		// delete it
+		APMarkerLayer.getSource().removeFeature(thisAPMarker);
+		// Reset map coords
+		thisAP = _.find(APList, ['id', id]);
+		thisAP["mapCoord"] = false;
+		newAPdata();	
+	}
 }
 
 function addAPMarker(mapCoord, id, statusColor="green") {

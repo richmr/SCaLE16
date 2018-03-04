@@ -64,7 +64,7 @@
 				
 				<!-- Unplaced AP Detailed Data -->
 				<div id="unplacedAPDetailedData" class="collection" >
-					<a href="#!" class="collection-item">Alvin</a>
+					<a href="#!" class="collection-item active">Alvin</a>
 					<div id="lastUnplacedAP"></div>
 				</div>
 									
@@ -193,15 +193,15 @@
 			    </div>
 		    </div>
 		    
-			<!-- MVP Warning modal -->		    
-		    <div id="resetTableModal" class="modal">
-				<div id="resetTableModal-content" class="modal-content">
-			      <span id="resetTableModal-header"><h5>Reset Your Party?!</h5></span>
-			      Click the confirmation button below to reset all of your data<br>
-			      Or click Cancel.
+			<!-- Edit AP modal -->		    
+		    <div id="editAPModal" class="modal">
+				<div id="editAPModal-content" class="modal-content">
+			      <span id="editAPModal-header"><h5>Remove AP from map?</h5></span>
+			      The AP will remain in the data set, it will just be taken off the map<br>
+			      To remove the AP from the data set, it must be removed from Zabbix.
 			   </div>
-			    <div id="resetTableModal-footer" class="modal-footer">
-				   <a id="confirmResetTable" href="#!" class="waves-effect waves-red btn-flat red white-text">Confirm Reset</a>
+			    <div id="editAPModal-footer" class="modal-footer">
+				   <a id="confirmRemoveAP" href="#!" class="waves-effect waves-red btn-flat red white-text">Remove from map</a>
 				   <a href="#!" class="modal-action modal-close waves-effect btn-flat">Cancel</a>
 			    </div>
 		    </div>
@@ -217,6 +217,7 @@
 	<script type="text/javascript" src="js/lodash.js"></script>	
 	<script type="text/javascript" src="js/mapStartup.js"></script>
 	<script type="text/javascript" src="js/APCollections.js"></script>
+	<script type="text/javascript" src="js/editAPModal.js"></script>
 	<script type="text/javascript" src="js/jstat.min.js"></script>
 	<script type="text/javascript" src="js/materialize.min.js"></script>
 </body>

@@ -39,7 +39,16 @@ function updateCollections(yellowThreshold, redThreshold) {
 		} else {
 			addUnplacedAP(thisAP);		
 		}
-			
+	});
+	
+	// Activate clicking for the unplaced AP
+	$(".collection-item", $("#unplacedAPDetailedData")).click(function (event) {
+		// look for a current active element
+		console.log("Unplaced AP click event");
+		if (activeAP = $(".active", $("#unplacedAPDetailedData"))) {
+			$(activeAP).removeClass("active");
+		}
+		$(this).addClass("active");
 	});
 }
 
@@ -67,13 +76,22 @@ function addActiveAP(thisAP, yellowThreshold, redThreshold) {
 	
 	htmlstring += '</li>'
 	
-	// Add it
-	$("#lastPlacedAP").before(htmlstring);
+	// Add it and add some needed data
+	$("#lastPlacedAP").before(htmlstring)
+	$("#"+headerid).data("origID", thisAP["id"]);
 	
 	// Activate the collapsibles
-	$(headerid).collapsible();
-	$(bodyid).collapsible();
+	$("#"+headerid).collapsible();
+	$("#"+bodyid).collapsible();
 	
+	// Activate the click response
+	$("#"+headerid).click(function () {
+		// Find the AP associated with this line
+		var id = $(this).data("origID");
+		var APdata = _.find(APList, ["id", id]);
+		var coord = APdata["mapCoord"];
+		map.getView().setCenter(coord);
+	});	
 }
 
 function addUnplacedAP(thisAP) {
@@ -83,11 +101,11 @@ function addUnplacedAP(thisAP) {
 	var id = thisAP["id"].split(" ").join("_");
 	
 	// entry
-	htmlstring += '<a href="#!" id="'+id+'" class="collection-item">'+thisAP["id"]+' (Select and then click to place on map [NOT WORKING YET])</a>';
+	htmlstring += '<a href="#!" id="'+id+'" class="collection-item">'+thisAP["id"]+' (Select and then click map to place)</a>';
 	
-	// Add it
+	// Add it and add needed data
 	$("#lastUnplacedAP").before(htmlstring);
+	$("#"+id).data("origID", thisAP["id"]);
 	
-	// Activate the clicking
-	// TODO	
+	
 }

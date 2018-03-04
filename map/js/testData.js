@@ -26,6 +26,7 @@ function initializeTestData() {
 	APList.push({id:"AP Exhibit Hall B 1", mapCoord:[505, 542], currentClientCount:0, notes:"Selected log lines go here"});
 	APList.push({id:"AP Exhibit Hall B 2 ", mapCoord:[637,545], currentClientCount:0, notes:"Selected log lines go here"});
 	APList.push({id:"AP Ice Rink 1 ", mapCoord:false, currentClientCount:0, notes:"Selected log lines go here"});
+	APList.push({id:"AP Ice Rink 2 ", mapCoord:false, currentClientCount:0, notes:"Selected log lines go here"});
 	
 	
 	newAPdata();
