@@ -50,10 +50,130 @@ function initializeMap() {
         })
       });
 	
+	// Activate the mode buttons
+	$("#monitor_mode").click( function (event) {
+		clickedOnMonitorMode();
+	});
+	
+	$("#configure_mode").click( function (event) {
+		clickedOnConfigureMode();
+	});
+      
+	// Map starts on Monitor mode
+	clickedOnMonitorMode();
+	
+	
+	
 	map.on('click', function (event) {
 		//var coord = map.getCoordinateFromPixel(event.pixel);
 		markerTest(event.pixel);
 	});
+}
+
+function clickedOnMonitorMode() {
+	$("#monitor_mode").addClass("disabled");
+	$("#configure_mode").removeClass("disabled");
+	$("#unplacedAPDetailedData").hide();
+	$("#activeAPDetailedData").show();
+} 
+
+function clickedOnConfigureMode() {
+	$("#monitor_mode").removeClass("disabled");
+	$("#configure_mode").addClass("disabled");
+	$("#unplacedAPDetailedData").show();
+	$("#activeAPDetailedData").hide();
+	map.off('click');
+	map.on('click', function (event) {
+		//var coord = map.getCoordinateFromPixel(event.pixel);
+		markerTest(event.pixel);
+	});
+} 
+
+function newAPdata() {
+	// Goes through all APs
+	var clientCount = [];
+	$.each(APList, function (key, APItem) {
+		if (APItem["mapCoord"]) {
+			clientCount.push(APItem["currentClientCount"]);
+		}
+	});
+	// Calculates mean and std dev for colorization, only drawing from positioned AP
+	var stat = jStat(clientCount);
+	var mean = stat.mean();
+	var stddev = stat.stdev();
+		
+	// Goes through all APs
+	// If AP is in feature list already, then updates color as needed
+	// Also sends AP object to the collection item code
+	var yellowThreshold = mean + stddev;
+	var redThreshold = mean + (2*stddev);
+	$.each(APList, function (key, APItem) {
+		if (! APMarkerLayer) {
+			// This is the first marker!
+			if (coord = APItem["mapCoord"]) {
+				var statusColor = "green";
+				if (APItem["currentClientCount"] >= yellowThreshold) {
+					statusColor = "yellow";
+				}
+				if (APItem["currentClientCount"] >= redThreshold) {
+					statusColor = "red";
+				}
+				addAPMarker(coord, APItem["id"], statusColor);
+			}
+		} else {
+			// Look for this APItemID in the features list
+			if ( thisFeature = APMarkerLayer.getSource().getFeatureById(APItem["id"])) {
+				var statusColor = "green";
+				if (APItem["currentClientCount"] >= yellowThreshold) {
+					statusColor = "yellow";
+				}
+				if (APItem["currentClientCount"] >= redThreshold) {
+					statusColor = "red";
+				}
+				// Set the feature
+				thisFeature.setStyle(getAPIconStyle(statusColor));
+			} else if (coord = APItem["mapCoord"]) {
+				// Then this isn't in our feature list AND it has map coords
+				// add it to the layer
+				var statusColor = "green";
+				if (APItem["currentClientCount"] >= yellowThreshold) {
+					statusColor = "yellow";
+				}
+				if (APItem["currentClientCount"] >= redThreshold) {
+					statusColor = "red";
+				}
+				addAPMarker(coord, APItem["id"], statusColor);
+			}
+		}
+	});
+	// Trigger the update to the collections
+	updateCollections(yellowThreshold, redThreshold);	
+}
+
+function monitorClick(pixelCoords) {
+	// Clicked on the map in monitor mode
+	
+}
+
+function addAPMarker(mapCoord, id, statusColor="green") {
+	var iconFeature = new ol.Feature({
+        geometry: new ol.geom.Point(mapCoord)
+      });
+      
+      iconFeature.setId(id);
+      iconFeature.setStyle(getAPIconStyle(statusColor));
+      
+      if (! APMarkerLayer) {
+			var vectorSource = new ol.source.Vector({
+				features: [iconFeature]
+			});
+			APMarkerLayer = new ol.layer.Vector({
+			   source: vectorSource
+			});
+			map.addLayer(APMarkerLayer);
+		} else {
+			APMarkerLayer.getSource().addFeature(iconFeature);		
+		}
 }
 
 function markerTest(coord) {
@@ -69,6 +189,7 @@ function markerTest(coord) {
 		return;
 	}
 	coord = map.getCoordinateFromPixel(coord);
+	console.log("Coords: "+coord);
 	
 	var iconFeature = new ol.Feature({
         geometry: new ol.geom.Point(coord),

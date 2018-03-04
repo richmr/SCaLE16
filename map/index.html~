@@ -35,7 +35,7 @@
 				<div class="col s8  center-align">
 						<h5><span id="mapName" class="center-align">Convention Center Overview</span></h5>  <!-- <i class="small material-icons">arrow_drop_down</i> -->
 				</div>
-				<div class="col s2 valign-wrapper">
+			<!--	<div class="col s2 valign-wrapper">-->
 					<!--<a class="waves-effect modal-trigger" href="#MVPAboutModal">
 						<i id="info" class="small material-icons action-icons" style="padding-right:5px">info_outline</i>
 					</a>
@@ -49,40 +49,24 @@
 					<a class="waves-effect" href="#!">
 						<i id="guest_list" class="small material-icons action-icons">list</i>
 					</a>-->
-				</div>
+				<!--</div>-->
 				<!-- Main Map Data Here -->
-				<div id="map" class="map"></div>	
-				<script>
-      // Map views always need a projection.  Here we just want to map image
-      // coordinates directly to map coordinates, so we create a projection that uses
-      // the image extent in pixels.
-      var extent = [0, 0, 735, 485];
-      var projection = new ol.proj.Projection({
-        code: 'xkcd-image',
-        units: 'pixels',
-        extent: extent
-      });
-
-      var map = new ol.Map({
-        layers: [
-          new ol.layer.Image({
-            source: new ol.source.ImageStatic({
-              attributions: '© <a href="http://xkcd.com/license.html">xkcd</a>',
-              url: 'images/pasadena-convention-center-map.jpg',
-              projection: projection,
-              imageExtent: extent
-            })
-          })
-        ],
-        target: 'map',
-        view: new ol.View({
-          projection: projection,
-          center: ol.extent.getCenter(extent),
-          zoom: 2,
-          maxZoom: 8
-        })
-      });
-    </script>	
+				<div id="map" class="map" style="border: 1px solid black"></div>	
+				
+				<!-- Active AP Detailed Data -->
+				<ul id="activeAPDetailedData" class="collapsible" data-collapsible="accordion">
+					<li>
+				      <div class="collapsible-header"><i class="material-icons">filter_drama</i>First</div>
+				      <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+				    </li>
+					<div id="lastPlacedAP"></div>
+				</ul>
+				
+				<!-- Unplaced AP Detailed Data -->
+				<div id="unplacedAPDetailedData" class="collection" >
+					<a href="#!" class="collection-item">Alvin</a>
+					<div id="lastUnplacedAP"></div>
+				</ul>
 									
 			</div>
 			
@@ -92,6 +76,7 @@
 				<p><div class="username"><h5>Username</h5></div></p>
 				<p><a id="monitor_mode" class="waves-effect waves-light btn blue lighten-2 white-text">Monitor</a></p>
 				<p><a id="configure_mode" class="waves-effect waves-light btn blue lighten-2 white-text">Configure</a></p>
+				<p><a id="sim_data" class="waves-effect waves-light btn blue lighten-2 white-text">Sim Data</a></p>
 			</div>
 			
 			<!-- Archive Modal Definition -->
@@ -226,10 +211,13 @@
 		</div>
 	<script type="text/javascript" src="js/conferenceMap-ol.js"></script>
 	<script type="text/javascript" src="js/globalVars.js"></script>
+	<script type="text/javascript" src="js/testData.js"></script>
 	<script type="text/javascript" src="js/dataManagement.js"></script>
 	<script type="text/javascript" src="js/loadData-modal.js"></script>
 	<script type="text/javascript" src="js/lodash.js"></script>	
 	<script type="text/javascript" src="js/mapStartup.js"></script>
+	<script type="text/javascript" src="js/APCollections.js"></script>
+	<script type="text/javascript" src="js/jstat.min.js"></script>
 	<script type="text/javascript" src="js/materialize.min.js"></script>
 </body>
 </html>

@@ -21,7 +21,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 var parties = {"name":"Click to name your party", "defaultSeats":10};
 var partyRowData = { "categories":["Guests"],
 								"nextRowID":2,
-								"rows":{"1":{"name":"Click to Change", "seats":10}}
+								"rows":{1:{"name":"Click to Change", "seats":10}}
 							};
 var people = {};
 
@@ -39,7 +39,7 @@ var archivedPeople = [];
 var donePeople = [];
 var graveyardPeople = [];
 								
-var tables = { "nextProjID":"1"
+var tables = { "nextProjID":1
 					};
 var seatsDataSaved = true;
 var permanentPeople = {"0": {"title":"New Guest", "status":"chip-placeholder", "draggable":false, "droppable":true, "click":"add"},
