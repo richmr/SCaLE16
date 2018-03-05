@@ -16,22 +16,12 @@ WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN 
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 $(document).ready(function(){
-	 // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
-	/*$( window ).unload(function() {
-		  return exitPriorities();
-		});	*/
-	
-	/*$('.modal').modal();
+	 $('.modal').modal();
 	$('select').material_select();
 	
-	// Warning modal
-	$("#MVPWarningModal").modal("open");
-	
-	// Establish the reset state for future use
-	saveResetState();    
 	
 	//initializeData();
-	if (wasDataSaved()) {
+	/*if (wasDataSaved()) {
 		loadAllData();
 	} else {
 		$("#MVPAboutModal").modal("open");
@@ -44,7 +34,10 @@ $(document).ready(function(){
 	initializeEditTableRow();
 	initializeResetTable();*/
 	initializeMap();
-);
+	initializeTestData();
+	initializeEditAPModal();
+	zabbixAPIInitialize();
+});
 
 function newData() {
 	//console.log("newData() running.");	

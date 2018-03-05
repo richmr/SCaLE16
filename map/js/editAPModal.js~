@@ -16,22 +16,19 @@ WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN 
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-// Global variable declarations
-
-// Collection of AccessPoints Objects:
-// {id:"AP Ballroom 1", mapCoord:[X,Y], currentUserCount:20, Notes:""}
-var APList = [];
-var authToken = false;
-
-
-function consolidateData() {
-	// Returns a consolidated JSON object with all data
-	// First update the pools
-	saveArchive();
-	saveGraveyard();
-	saveDone();
-	
-	return makeAllDataJSON();
+function initializeEditAPModal() {
+	// Activate remove button
+	$("#confirmRemoveAP").click(function (event) {
+		clickOnConfirmRemoveAP();
+	});
 }
 
-console.log("Global vars loaded.");
+function clickOnConfirmRemoveAP() {
+	// Get the id
+	var id = $("#editAPModal").data("id");
+	
+	// Call the function in Maps)
+	removeAPMarker(id);
+	$("#editAPModal").modal("close");
+	
+}

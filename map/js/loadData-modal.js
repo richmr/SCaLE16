@@ -17,6 +17,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 
+
 $("#load_data").click(function(event) {
 		clickOnLoadData();		
 	});
@@ -32,7 +33,41 @@ $("#pickDataFile").change(function (event) {
 $("#pickDataFile").click(function (event) {
 		this.value = null;			
 	});
+
+function loginToZabbix_screen() {
+	$("#dataAnalysisModal").modal('open');
+	$("#dataAnalysis-collection").empty();
 	
+	addDataAnalysisCollectionItem("zabbix-apicheck", "Checking Zabbix API Response..");
+	addDataAnalysisCollectionItem("zabbix-login", "Logging in to Zabbix instance..");
+	startDataProgressBar();	
+}
+
+function zabbixAPICheckSuccess(response, status) {
+	console.log("APICheckSuccess: ");
+	dataAnalysisSuccess("zabbix-apicheck");
+}
+
+function zabbixAuthResponseSuccess(response, status) {
+	console.log("AuthResponseSuccess");
+	dataAnalysisSuccess("zabbix-login");
+	$("#username").text(zab_username);
+	saveAllData();
+	$("#dataAnalysisModal").modal('close');		
+}
+
+function zabbixAuthResponseFail(response, status) {
+	console.log("AuthResponseFail");
+	dataAnalysisFail("zabbix-login", zabServer.isError().data);
+	$('#dataAnalysisModal').modal('getInstance').options["complete"] = function () {
+		// This hack allows me to force the login screen to open again
+		$("#loginModal").modal("open");
+		$('#dataAnalysisModal').modal('getInstance').options["complete"] = null;
+	};	
+	$("#loginModal-header").html('<h5 class="red-text">Log in failed!</h5><p>'+zabServer.isError().data+'</p>');
+}
+	
+
 function clickOnUpdateData(dataJSONString) {
 	//$("#loadDataModal").modal('close');
 	$("#dataAnalysisModal").modal('open');

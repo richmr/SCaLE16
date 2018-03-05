@@ -17,17 +17,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 var keyGlobalVars = [
-	"parties",
-	"partyRowData",
-	"people",
-	"peopleChips",
-	"archivedPeople",
-	"donePeople",
-	"graveyardPeople",
-	"tables"
+	"zab_username",
+	"zab_password"
 	];
 
-var savedDataFlag = "seatsDataSaved";
+var savedDataFlag = "SCaLE16";
 
 var lastKnownState = {};
 var resetState = {};

@@ -18,33 +18,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 // Global variable declarations
 
-var parties = {"name":"Click to name your party", "defaultSeats":10};
-var partyRowData = { "categories":["Guests"],
-								"nextRowID":2,
-								"rows":{"1":{"name":"Click to Change", "seats":10}}
-							};
-var people = {};
+// Collection of AccessPoints Objects:
+// {id:"AP Ballroom 1", mapCoord:[X,Y], currentUserCount:20, Notes:""}
+var APList = [];
+var authToken = false;
 
-var peopleChips = { "priority-row-1-spot-1": { "projectID":"stage", "blank":"stage"},
-							"priority-row-1-spot-2": { "projectID":"stage", "blank":"stage"},
-							"priority-row-1-spot-3": { "projectID":"stage", "blank":"stage"},
-							"priority-row-1-spot-4": { "projectID":"stage", "blank":"stage"},
-							"priority-row-1-spot-5": { "projectID":"stage", "blank":"stage"},
-							"priority-row-1-spot-6": { "projectID":"stage", "blank":"stage"},
-							"priority-row-1-spot-7": { "projectID":"stage", "blank":"stage"},
-							"priority-row-1-spot-8": { "projectID":"stage", "blank":"stage"},
-							"priority-chipStage" : {"projectID":"stage", "blank":"stage"}
-						};
-var archivedPeople = [];
-var donePeople = [];
-var graveyardPeople = [];
-								
-var tables = { "nextProjID":"1"
-					};
-var seatsDataSaved = true;
-var permanentPeople = {"0": {"title":"New Guest", "status":"chip-placeholder", "draggable":false, "droppable":true, "click":"add"},
-									"stage": {"title":"New Guest", "status":"chip-placeholder", "draggable":false, "droppable":true, "click":"add"},
-								};
 
 function consolidateData() {
 	// Returns a consolidated JSON object with all data
