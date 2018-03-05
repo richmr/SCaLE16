@@ -101,9 +101,9 @@ function clickedOnConfigureMode() {
 } 
 
 function mapClick(pixelCoords) {
-	if (mode="monitor") {
+	if (mode=="monitor") {
 		mapClickMonitor(pixelCoords);
-	} else if (mode = "configure") {
+	} else if (mode == "configure") {
 		mapClickConfigure(pixelCoords);
 	}
 }

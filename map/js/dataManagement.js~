@@ -17,17 +17,10 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 var keyGlobalVars = [
-	"parties",
-	"priorityRowData",
-	"people",
-	"priorityChips",
-	"archivedProjects",
-	"doneProjects",
-	"graveyardProjects",
-	"projects"
+	"authToken"
 	];
 
-var savedDataFlag = "prioritiesDataSaved";
+var savedDataFlag = "SCaLE16";
 
 var lastKnownState = {};
 var resetState = {};

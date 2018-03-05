@@ -32,10 +32,11 @@ $(document).ready(function(){
 	initializeLoadData();
 	initializeEditProject();
 	initializeEditTableRow();
-	initializeResetTable();*/*/
+	initializeResetTable();*/
 	initializeMap();
 	initializeTestData();
 	initializeEditAPModal();
+	zabbixAPIInitialize();
 });
 
 function newData() {
