@@ -33,8 +33,11 @@ function zabbixAPIInitialize() {
 		$("#loginModal-login").val(zab_username);
 		$("#loginModal-password").val(zab_password);
 	}
-
-	$("#loginModal").modal("open");
+	$("#loginModal").modal({
+      dismissible: false // Modal can be dismissed by clicking outside of the modal
+    });
+    
+    $("#loginModal").modal("open");
 }
 
 function clickedLogin() {
