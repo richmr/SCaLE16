@@ -16,39 +16,51 @@ WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN 
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-function initializeZabbixAuth() {
-	zabhost = "http://scalezab.com/zabbix/api_jsonrpc.php";;
-	zab_username = "mrich";
-	zab_password = "bob1234sam";
-	saveAllData();
+var iAmPolling = false;
+var pollrate = 1;
+
+function initializePolling() {
+	// Activate select field
+	//$('select').material_select();	
+	
+	// Disable the polling rate
+	$("#pollingRate").prop("disabled", true);	
+	
+	// Activate the switches
+	$("#autoPolling").click(function () {
+		clickedOnAutoPolling();	
+	});
+	
+	$("#pollingRate").change(function () {
+		changedPollRate();	
+	});
 }
 
-
-/*server = new $.jqzabbix({
-    url: zabhost+apilink,  // URL of Zabbix API
-    username: username,   // Zabbix login user name
-    password: password,  // Zabbix login password
-    basicauth: false,    // If you use basic authentication, set true for this option
-    busername: '',       // User name for basic authentication
-    bpassword: '',       // Password for basic authentication
-    timeout: 5000,       // Request timeout (milli second)
-    limit: 1000,         // Max data number for one request
-});
-
-function zabtest1() {
-	server.getApiVersion(null, zabbixAPICheckSuccess, null);
-	server.userLogin(null, zabbixAuthResponseSuccess, zabbixAuthResponseFail);
-}
-*/
-
-function polltest(method, params) {
-	zabServer.sendAjaxRequest(method, params, polltest_success, polltest_error);
+function changedPollRate() {
+	pollrate = Number($("#pollingRate").val());
+	console.log("Polling rate:" + pollrate);
 }
 
-function polltest_success (response, status) {
-	console.log(response.result);
+function clickedOnAutoPolling() {
+	// If I'm now checked then I activate the polling rate control
+ 	if ($("#autoPolling").prop("checked")) {
+		$("#pollingRate").prop("disabled", false);
+		startPolling();
+ 	} else {
+		 $("#pollingRate").prop("disabled", true);
+		 stopPolling();	
+ 	}
 }
 
-function polltest_error() {
-	console.log(zabServer.isError());
+function startPolling() {
+	// 
+	console.log("start poling");
+	iAmPolling = true;
+	// Do an immediate poll
+	//pollForData();
+}
+
+function stopPolling() {
+	console.log("stop polling");
+	iAmPolling = false;
 }

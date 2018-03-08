@@ -29,6 +29,7 @@ function clickOnConfirmRemoveAP() {
 	
 	// Call the function in Maps)
 	removeAPMarker(id);
+	$("#save_placement").removeClass("disabled");
 	$("#editAPModal").modal("close");
 	
 }

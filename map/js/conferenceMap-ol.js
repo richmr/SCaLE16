@@ -36,7 +36,7 @@ function initializeMap() {
         layers: [
           new ol.layer.Image({
             source: new ol.source.ImageStatic({
-              //attributions: '© <a href="http://xkcd.com/license.html">xkcd</a>',
+              attributions: 'APMap by Michael R. Rich',
               url: 'images/pasadena-convention-center-map-full.jpg',
               projection: projection,
               imageExtent: extent
@@ -62,6 +62,7 @@ function initializeMap() {
 	});
       
 	// Map starts on Monitor mode
+	$("#save_placement").show().addClass("disabled");
 	clickedOnMonitorMode();
 	
 	// Map does funny things when screen resized.  Let's grab the original size to restore it later
@@ -86,6 +87,7 @@ function clickedOnMonitorMode() {
 	$("#monitor_mode").addClass("disabled");
 	$("#configure_mode").removeClass("disabled");
 	$("#unplacedAPDetailedData").hide();
+	$("#save_placement").hide();
 	$("#activeAPDetailedData").show();
 	mode = "monitor";
 	console.log("Monitor mode activated");
@@ -95,6 +97,7 @@ function clickedOnConfigureMode() {
 	$("#monitor_mode").removeClass("disabled");
 	$("#configure_mode").addClass("disabled");
 	$("#unplacedAPDetailedData").show();
+	$("#save_placement").show();
 	$("#activeAPDetailedData").hide();
 	mode = "configure";
 	console.log("configure mode activated");
@@ -120,6 +123,7 @@ function mapClickConfigure(pixelCoords) {
 		thisAP = _.find(APList, ['id', selectedAPid]);
 		thisAP["mapCoord"]=coord;
 		newAPdata();
+		$("#save_placement").removeClass("disabled");
 	} else if (map.hasFeatureAtPixel(pixelCoords)) {
 		// Pop open edit AP modal
 		// Set ID of feature found
@@ -158,8 +162,8 @@ function newAPdata() {
 	// Goes through all APs
 	// If AP is in feature list already, then updates color as needed
 	// Also sends AP object to the collection item code
-	var yellowThreshold = mean + stddev;
-	var redThreshold = mean + (2*stddev);
+	var yellowThreshold = mean + stddev + 1;  // Harmless hack to prevent AP from turning red if no actual data
+	var redThreshold = mean + (2*stddev) + 2;
 	$.each(APList, function (key, APItem) {
 		if (! APMarkerLayer) {
 			// This is the first marker!

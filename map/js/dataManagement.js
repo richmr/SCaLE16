@@ -18,8 +18,10 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 var keyGlobalVars = [
 	"zab_username",
-	"zab_password"
-	];
+	"zab_password",
+	"zabhost",
+	"apsearchterm",
+];
 
 var savedDataFlag = "SCaLE16";
 
@@ -64,12 +66,14 @@ function saveData(objToSave) {
 }
 
 function loadData(objToLoad, isJSON = true) {
-	var obj = localStorage.getItem(objToLoad);
-	if (isJSON) {
-		obj = JSON.parse(obj);
+	obj = localStorage.getItem(objToLoad); 
+	if (typeof obj !== "undefined") {
+		if (isJSON) {
+			obj = JSON.parse(obj);
+		}
+		lastKnownState[objToLoad] = obj;
+		window[objToLoad] = obj;
 	}
-	lastKnownState[objToLoad] = obj;
-	window[objToLoad] = obj;
 }
 
 function loadAllData() {

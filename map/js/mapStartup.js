@@ -36,7 +36,9 @@ $(document).ready(function(){
 	initializeMap();
 	initializeTestData();
 	initializeEditAPModal();
-	//zabbixAPIInitialize();
+	initializePolling();
+	initializeSettingsModal();
+	zabbixAPIInitialize();
 });
 
 function newData() {

@@ -35,9 +35,9 @@
 				<div class="col s8  center-align">
 						<h5><span id="mapName" class="center-align">Convention Center Overview</span></h5>  <!-- <i class="small material-icons">arrow_drop_down</i> -->
 				</div>
-			<!--	<div class="col s2 valign-wrapper">-->
-					<!--<a class="waves-effect modal-trigger" href="#MVPAboutModal">
-						<i id="info" class="small material-icons action-icons" style="padding-right:5px">info_outline</i>
+				<!--<div class="col s2 valign-wrapper">
+					<a class="waves-effect modal-trigger" href="#DataSettingsButton">
+						<i id="info" class="small material-icons action-icons" style="padding-right:5px">settings_applications</i>
 					</a>
 					<input type="file" id="pickDataFile" name="upload" style="visibility: hidden; width: 1px; height: 1px" />
 					<a class="waves-effect" href="#!">
@@ -48,8 +48,8 @@
 					</a>
 					<a class="waves-effect" href="#!">
 						<i id="guest_list" class="small material-icons action-icons">list</i>
-					</a>-->
-				<!--</div>-->
+					</a>
+				</div>-->
 				<!-- Main Map Data Here -->
 				<div id="map" class="map" style="border: 1px solid black"></div>	
 				
@@ -73,9 +73,35 @@
 			<!-- Side menu -->
 			<div class="col s2">
 				<br>
-				<p><div id="username">Username</div></p>
+				<!--<p><div id="username">Username</div></p>-->
+				<p><a id="settings" class="waves-effect waves-light btn blue lighten-2 white-text">Settings</a></p>
+				<fieldset>
+					<legend>Mode</legend>
 				<p><a id="monitor_mode" class="waves-effect waves-light btn blue lighten-2 white-text">Monitor</a></p>
 				<p><a id="configure_mode" class="waves-effect waves-light btn blue lighten-2 white-text">Configure</a></p>
+				</fieldset>
+				<p><a id="save_placement" class="waves-effect waves-light btn blue lighten-2 white-text">Save</a></p>
+				<fieldset><legend>Automatic Polling</legend>
+				<p><div class="switch">
+			    <label>
+			      Off
+			      <input type="checkbox" id="autoPolling">
+			      <span class="lever"></span>
+			      On
+			    </label>
+  				</div></p>
+				<!--<p>Polling rate:</p>-->
+        						<p>
+									 <select id="pollingRate" class="browser-default">
+										<option value="1"  selected>Every minute</option>
+										<option value="5">Every 5 minutes</option>
+										<option value="10">Every 10 minutes</option>
+										<option value="30">Every 30 minutes</option>
+									 </select>
+
+				
+							  </p>
+							 </fieldset>
 				<p><a id="sim_data" class="waves-effect waves-light btn blue lighten-2 white-text">Sim Data</a></p>
 			</div>
 			
@@ -146,22 +172,60 @@
 			    </div>
 		    </div>
 		    
+		    <!-- Settings Modal Definition -->
+			<div id="settingsModal" class="modal">
+				<div id="settingsModal-content" class="modal-content">
+			      <span id="settingsModal-header"><h5>Settings</h5></span>
+			      <div class="row">
+    					<form action="#">
+    						<div class="col s12">
+    							<p>Please enter the Host Group(s) search term.</p>
+    							<p>You can use a "*" wildcard.</p>
+    							</div>
+    							<p class="valign-wrapper">
+    							<<!--div class="col s2">Host Group</div>-->
+    							<div class="col s5 input-field">
+									 <select id="searchtype">
+										<option id="startSearch" value="startSearch" selected>Host Group starts with..</option>
+										<option id="normSearch" value="normSearch">Host Group includes..</option>
+										 </select>
+									 <!--<label>Choose the search type to use.</label>-->
+							  </div>
+							  <div class="col s7 input-field">
+	        							<input placeholder="Search Term" id="searchterm" type="text" value="ap_*">
+	          						<!-- <label for="settingsModal-searchterm">Wireless AP Host Group Search Term</label> -->
+								</div>
+								</p>
+        						
+        				</form>
+			    </div>
+			    <div class="modal-footer">
+				     <!-- <a id="addANote" href="#!" class="waves-effect waves-green btn-flat">Notes</a> -->
+				      <a id="settingsModal-save" href="#!" class="waves-effect waves-green btn greent">Save</a>
+				      <a id="settingsModal-cancel" href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+			    </div>
+		    </div>
+		  </div>					
+		
 		    <!-- Log in Modal Definition -->
 			<div id="loginModal" class="modal">
 				<div id="loginModal-content" class="modal-content">
 			      <span id="loginModal-header"><h5>Log in</h5></span>
+			      <p>Use your log in from your Zabbix server</p>
 			      <div class="row">
     					<form action="#" class="col s12">
-    						<div class="row">
-        						<div class="input-field col s6">
+    							<p><div class="input-field">
         							<input placeholder="Login ID" id="loginModal-login" type="text" >
-          						<!-- <label for="editProject-Title">Project Title</label> -->
-        						</div>
-        						<div class="input-field col s6">
+          						 <label for="loginModal-login">Zabbix user name</label> 
+        						</div></p>
+        						<p><div class="input-field">
         							<input placeholder="Password" id="loginModal-password" type="password" >
-          						<!-- <label for="editProject-Title">Project Title</label> -->
-        						</div>
-        					</div>
+          						 <label for="loginModal-password">Password</label> 
+        						</div></p>
+        						<p><div class="input-field">
+        							<input placeholder="Zabbix API URL" id="loginModal-zabbixapiurl" type="text" >
+          						 <label for="loginModal-zabbixapiurl">URL to Zabbix API</label> 
+        						</div></p>
         				</form>
 			    </div>
 			    <div class="modal-footer">
@@ -219,7 +283,9 @@
 	<script type="text/javascript" src="js/APCollections.js"></script>
 	<script type="text/javascript" src="js/editAPModal.js"></script>
 	<script type="text/javascript" src="js/jqzabbix.js"></script>
-	//<script type="text/javascript" src="js/zabbixAuth.js"></script>
+	<script type="text/javascript" src="js/zabbixAuth.js"></script>
+	<script type="text/javascript" src="js/polling.js"></script>
+	<script type="text/javascript" src="js/settingsModal.js"></script>
 	<script type="text/javascript" src="js/jstat.min.js"></script>
 	<script type="text/javascript" src="js/zabbixAPI.js"></script>
 	<script type="text/javascript" src="js/materialize.min.js"></script>

@@ -24,7 +24,7 @@ function initializeAPCollections() {
 
 function updateCollections(yellowThreshold, redThreshold) {
 	// first alphabatize the AP List
-	var sortedAPList = _.sortBy(APList, ['id']);
+	var sortedAPList = _.sortBy(APList, ['host']);
 	
 	// Delete the current info in collections
 	// Add the "last rows" first
@@ -52,13 +52,21 @@ function updateCollections(yellowThreshold, redThreshold) {
 	});
 }
 
+function makeCollectionHeaderIDFromId(id) {
+	return "ap_"+id+"_header";
+}
+
+function makeCollectionBodyIDFromId(id) {
+	return "ap_"+id+"_body";
+}
+
 function addActiveAP(thisAP, yellowThreshold, redThreshold) {
 	// Returns a new collapsible html string
 	var htmlstring = "<li>";
 	
-	var id = thisAP["id"].split(" ").join("_");
-	var headerid = id+"_header";
-	var bodyid = id+"_body";
+	var id = thisAP["id"];
+	var headerid = makeCollectionHeaderIDFromId(id);
+	var bodyid = makeCollectionBodyIDFromId(id);
 	
 	var textcolor = "green-text";
 	if (thisAP["currentClientCount"] >= yellowThreshold) {
@@ -69,7 +77,7 @@ function addActiveAP(thisAP, yellowThreshold, redThreshold) {
 	}
 	
 	// header
-	htmlstring += '<div id="'+headerid+'" class="collapsible-header '+textcolor+'">'+thisAP["id"]+' ------ Current Client Count: '+thisAP["currentClientCount"]+'</div>';
+	htmlstring += '<div id="'+headerid+'" class="collapsible-header '+textcolor+'">'+thisAP["host"]+' ------ Current Client Count: '+thisAP["currentClientCount"]+'</div>';
 	
 	// body
 	htmlstring += '<div class="collapsible-body"><span>'+thisAP["notes"]+'</span></div>';
@@ -98,10 +106,10 @@ function addUnplacedAP(thisAP) {
 	// Returns a new collapsible html string
 	var htmlstring = "";
 	
-	var id = thisAP["id"].split(" ").join("_");
+	var id = thisAP["id"] + "_unplaced";
 	
 	// entry
-	htmlstring += '<a href="#!" id="'+id+'" class="collection-item">'+thisAP["id"]+' (Select and then click map to place)</a>';
+	htmlstring += '<a href="#!" id="'+id+'" class="collection-item">'+thisAP["host"]+' (Select and then click map to place)</a>';
 	
 	// Add it and add needed data
 	$("#lastUnplacedAP").before(htmlstring);

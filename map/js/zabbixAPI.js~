@@ -17,8 +17,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 var zabServer;
-var zabhost = "http://scalezab.com/zabbix/";
-var apilink = "api_jsonrpc.php";
+var zabhost;
 var zab_username = false;
 var zab_password = false;
 
@@ -28,10 +27,14 @@ function zabbixAPIInitialize() {
 		clickedLogin();
 	});
 	
+	// For testing
+	initializeZabbixAuth();	
+	
 	if (wasDataSaved()) {
 		loadAllData();
 		$("#loginModal-login").val(zab_username);
 		$("#loginModal-password").val(zab_password);
+		$("#loginModal-zabbixapiurl").val(zabhost);
 	}
 	$("#loginModal").modal({
       dismissible: false // Modal can be dismissed by clicking outside of the modal
@@ -54,7 +57,7 @@ function clickedLogin() {
 	
 	// Make the calls
 	zabServer = new $.jqzabbix({
-	    url: zabhost+apilink,  // URL of Zabbix API
+	    url: zabhost,  // URL of Zabbix API
 	    username: zab_username,   // Zabbix login user name
 	    password: zab_password,  // Zabbix login password
 	    basicauth: false,    // If you use basic authentication, set true for this option

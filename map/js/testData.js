@@ -17,16 +17,16 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 function initializeTestData() {
-	APList.push({id:"AP Ballroom 1", mapCoord:[515,327], currentClientCount:0, notes:"Selected log lines go here"});
-	APList.push({id:"AP Ballroom 2", mapCoord:[550,270], currentClientCount:0, notes:"Selected log lines go here"});
-	APList.push({id:"AP Ballroom 3", mapCoord:[623,330], currentClientCount:0, notes:"Selected log lines go here"});
-	APList.push({id:"AP Conference Center 1", mapCoord:[141,108], currentClientCount:0, notes:"Selected log lines go here"});
-	APList.push({id:"AP Conference Center 2", mapCoord:[381,109], currentClientCount:0, notes:"Selected log lines go here"});
-	APList.push({id:"AP Exhibit Hall A 1", mapCoord:[570,408], currentClientCount:0, notes:"Selected log lines go here"});
-	APList.push({id:"AP Exhibit Hall B 1", mapCoord:[505, 542], currentClientCount:0, notes:"Selected log lines go here"});
-	APList.push({id:"AP Exhibit Hall B 2 ", mapCoord:[637,545], currentClientCount:0, notes:"Selected log lines go here"});
-	APList.push({id:"AP Ice Rink 1 ", mapCoord:false, currentClientCount:0, notes:"Selected log lines go here"});
-	APList.push({id:"AP Ice Rink 2 ", mapCoord:false, currentClientCount:0, notes:"Selected log lines go here"});
+	APList.push({id:1, host:"AP Ballroom 1", mapCoord:[515,327], currentClientCount:0, notes:"Selected log lines go here"});
+	APList.push({id:2, host:"AP Ballroom 2", mapCoord:[550,270], currentClientCount:0, notes:"Selected log lines go here"});
+	APList.push({id:3, host:"AP Ballroom 3", mapCoord:[623,330], currentClientCount:0, notes:"Selected log lines go here"});
+	APList.push({id:4, host:"AP Conference Center 1", mapCoord:[141,108], currentClientCount:0, notes:"Selected log lines go here"});
+	APList.push({id:5, host:"AP Conference Center 2", mapCoord:[381,109], currentClientCount:0, notes:"Selected log lines go here"});
+	APList.push({id:6, host:"AP Exhibit Hall A 1", mapCoord:[570,408], currentClientCount:0, notes:"Selected log lines go here"});
+	APList.push({id:7, host:"AP Exhibit Hall B 1", mapCoord:[505, 542], currentClientCount:0, notes:"Selected log lines go here"});
+	APList.push({id:8, host:"AP Exhibit Hall B 2 ", mapCoord:[637,545], currentClientCount:0, notes:"Selected log lines go here"});
+	APList.push({id:9, host:"AP Ice Rink 1 ", mapCoord:false, currentClientCount:0, notes:"Selected log lines go here"});
+	APList.push({id:10, host:"AP Ice Rink 2 ", mapCoord:false, currentClientCount:0, notes:"Selected log lines go here"});
 	
 	
 	newAPdata();

@@ -16,39 +16,26 @@ WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN 
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-function initializeZabbixAuth() {
-	zabhost = "http://scalezab.com/zabbix/api_jsonrpc.php";;
-	zab_username = "mrich";
-	zab_password = "bob1234sam";
+var apsearchterm = "ap_";
+var searchtype = "startSearch";
+
+function initializeSettingsModal() {
+	$("#settingsModal").modal();
+	$("#settings").click(function () {
+		// Display the selected search type
+		$("#"+searchtype).prop("selected", true);
+		$("#searchterm").val(apsearchterm);
+		$("#settingsModal").modal("open");
+	});	
+	
+	$("#settingsModal-save").click(function () {
+		clickedSettingsSave();
+	});
+}
+
+function clickedSettingsSave() {
+	searchtype = $(":selected", $("#searchtype")).val();
+	apsearchterm = $("#searchterm").val();	
+	$("#settingsModal").modal("close");
 	saveAllData();
-}
-
-
-/*server = new $.jqzabbix({
-    url: zabhost+apilink,  // URL of Zabbix API
-    username: username,   // Zabbix login user name
-    password: password,  // Zabbix login password
-    basicauth: false,    // If you use basic authentication, set true for this option
-    busername: '',       // User name for basic authentication
-    bpassword: '',       // Password for basic authentication
-    timeout: 5000,       // Request timeout (milli second)
-    limit: 1000,         // Max data number for one request
-});
-
-function zabtest1() {
-	server.getApiVersion(null, zabbixAPICheckSuccess, null);
-	server.userLogin(null, zabbixAuthResponseSuccess, zabbixAuthResponseFail);
-}
-*/
-
-function polltest(method, params) {
-	zabServer.sendAjaxRequest(method, params, polltest_success, polltest_error);
-}
-
-function polltest_success (response, status) {
-	console.log(response.result);
-}
-
-function polltest_error() {
-	console.log(zabServer.isError());
 }

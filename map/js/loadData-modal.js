@@ -48,6 +48,11 @@ function zabbixAPICheckSuccess(response, status) {
 	dataAnalysisSuccess("zabbix-apicheck");
 }
 
+function zabbixAPICheckFail(response, status) {
+	console.log("APICheckFail ");
+	dataAnalysisFail("zabbix-apicheck", zabServer.isError().data);
+}
+
 function zabbixAuthResponseSuccess(response, status) {
 	console.log("AuthResponseSuccess");
 	dataAnalysisSuccess("zabbix-login");
@@ -59,6 +64,7 @@ function zabbixAuthResponseSuccess(response, status) {
 function zabbixAuthResponseFail(response, status) {
 	console.log("AuthResponseFail");
 	dataAnalysisFail("zabbix-login", zabServer.isError().data);
+	stopDataProgressBar();
 	$('#dataAnalysisModal').modal('getInstance').options["complete"] = function () {
 		// This hack allows me to force the login screen to open again
 		$("#loginModal").modal("open");

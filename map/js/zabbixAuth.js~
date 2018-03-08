@@ -16,12 +16,15 @@ WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN 
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-username = "mrich";
-password = "bob1234sa";
-zabhost = "http://scalezab.com/zabbix/";
-apilink = "api_jsonrpc.php";
+function initializeZabbixAuth() {
+	zabhost = "http://scalezab.com/zabbix/api_jsonrpc.php";;
+	zab_username = "mrich";
+	zab_password = "bob1234sam";
+	saveAllData();
+}
 
-server = new $.jqzabbix({
+
+/*server = new $.jqzabbix({
     url: zabhost+apilink,  // URL of Zabbix API
     username: username,   // Zabbix login user name
     password: password,  // Zabbix login password
@@ -35,4 +38,17 @@ server = new $.jqzabbix({
 function zabtest1() {
 	server.getApiVersion(null, zabbixAPICheckSuccess, null);
 	server.userLogin(null, zabbixAuthResponseSuccess, zabbixAuthResponseFail);
+}
+*/
+
+function polltest(method, params) {
+	zabServer.sendAjaxRequest(method, params, polltest_success, polltest_error);
+}
+
+function polltest_success (response, status) {
+	console.log(response.result);
+}
+
+function polltest_error() {
+	console.log(zabServer.isError());
 }
