@@ -56,10 +56,10 @@ function createAjaxOption(method, params, success, error, complete) {
     }, params);*/
 
     // merge params with username and password
-    $.extend(params, {
+    /*$.extend(params, {
         user: options.username,
         password: options.password
-    });
+    });*/
 
     // create sending data
     var data = {
@@ -213,7 +213,8 @@ this.getApiVersion = function(params, success, error, complete) {
 }
 
 this.userLogin = function(params, success, error, complete) {
-
+	 params = {};
+	 
     // reset rpcid
     rpcid = 0;
 
@@ -238,6 +239,12 @@ this.userLogin = function(params, success, error, complete) {
         }
     }
 
+	// merge params with username and password
+    $.extend(params, {
+        user: options.username,
+        password: options.password
+    });
+    
     return this.sendAjaxRequest(method, params, successMethod, error, complete);
 }
 

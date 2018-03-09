@@ -51,6 +51,7 @@ function clickedLogin() {
 	// Pull data
 	zab_username = $("#loginModal-login").val();
 	zab_password = $("#loginModal-password").val();
+	zabhost = $("#loginModal-zabbixapiurl").val();
 	
 	// Open the status screen
 	loginToZabbix_screen();
@@ -71,3 +72,87 @@ function clickedLogin() {
 	zabServer.userLogin(null, zabbixAuthResponseSuccess, zabbixAuthResponseFail);
 }
 
+function getWirelessAPHostGroups() {
+	// This will use the data in the Settings modal to find the host group ID(s)
+	var params = {};
+	params["search"] = {"name":apsearchterm};
+	if (searchtype === "startSearch") {
+		params["startSearch"] = 1;	
+	}
+	method = "hostgroup.get";
+	zabServer.sendAjaxRequest(method, params, polltest_success, polltest_error);
+ }
+ 
+ function getHostgroupSuccess(response, status) {
+ 	
+	// Now get the AP List(s)
+	apgrouplists = response.result;
+	
+	// Did I get any data back?
+	if (apgrouplists.length == 0) {
+		openFailModal("No host group data was found.  Please check search settings or rename host groups in Zabbix");
+		return;
+	}
+	
+	groupids = [];
+	$.each(apgrouplists function (key, value) {
+		// Collate all of the groupids
+		groupids.push(value.groupid);
+	});
+	
+	// Make call for all hosts in these groupids
+	params["groupids"] = groupids;
+	params["selectInventory"]=["location_lat", "location_lon"]
+	method = "host.get";
+	zabServer.sendAjaxRequest(method, params, getHostsSuccess, getHostsFail);	
+ }
+ 
+ function getHostgroupFail() {
+	// Open a fail modal?
+	openFailModal("Failed to get host group data:  " + zabServer.isError());	
+ }
+
+function getHostsSuccess(response, status) {
+	hostlist = response.result;
+	
+	if (hostlist.length == 0) {
+		openFailModal("No wireless access points were found.  Please check search settings or the Zabbix database.");
+		return;	
+	}
+	
+	// Blow away current AP list (yikes)
+	APdata = [];
+	$.each(hostlist, function (key, ahost) {
+		// examine the lat long data
+		theseCoords = false;
+		if (ahost.inventory.length != 0) {
+			if ("location_lat" in ahost.inventory) {
+				if (ahost.inventory.location_lat) {
+					if ("location_lon" in ahost.inventory) {
+						if (ahost.inventory.location_lon) {
+							theseCoords = [Number(ahost.inventory.location_lat), Number(ahost.inventory.location_lon)];						
+						}					
+					}				
+				}
+			}		
+		}
+		
+		hostClientCount = 0
+		// Getting accurate client count not implemented yet
+		APList.push({id:ahost.hostid, host:ahost.host, mapCoord:theseCoords, currentClientCount:hostClientCount, notes:"Getting accurate client count not implemented yet"});
+		
+	});
+	
+	// update the info
+	newAPData();
+	
+}
+
+function getHostsFail() {
+	openFailModal("Failed to get host data:  " + zabServer.isError());
+}
+
+function openFailModal(msg) {
+	$("#failMessage").text(msg);
+	$("#failModal").modal("open");
+}

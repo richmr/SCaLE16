@@ -184,7 +184,7 @@
     							</div>
     							<p class="valign-wrapper">
     							<<!--div class="col s2">Host Group</div>-->
-    							<div class="col s3 input-field">
+    							<div class="col s5 input-field">
 									 <select id="searchtype">
 										<option id="startSearch" value="startSearch" selected>Host Group starts with..</option>
 										<option id="normSearch" value="normSearch">Host Group includes..</option>
