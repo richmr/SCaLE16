@@ -32,8 +32,9 @@ function initializeTestData() {
 	newAPdata();
 	
 	$("#sim_data").click(function (event) {
-		randomData();
-		newAPdata();
+		getWirelessAPHostGroups();
+		//randomData();
+		//newAPdata();
 	});
 }
 

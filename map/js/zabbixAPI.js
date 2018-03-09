@@ -80,7 +80,7 @@ function getWirelessAPHostGroups() {
 		params["startSearch"] = 1;	
 	}
 	method = "hostgroup.get";
-	zabServer.sendAjaxRequest(method, params, polltest_success, polltest_error);
+	zabServer.sendAjaxRequest(method, params, getHostgroupSuccess, getHostgroupFail);
  }
  
  function getHostgroupSuccess(response, status) {
@@ -95,12 +95,13 @@ function getWirelessAPHostGroups() {
 	}
 	
 	groupids = [];
-	$.each(apgrouplists function (key, value) {
+	$.each(apgrouplists, function (key, value) {
 		// Collate all of the groupids
 		groupids.push(value.groupid);
 	});
 	
 	// Make call for all hosts in these groupids
+	var params = {};
 	params["groupids"] = groupids;
 	params["selectInventory"]=["location_lat", "location_lon"]
 	method = "host.get";
@@ -115,13 +116,18 @@ function getWirelessAPHostGroups() {
 function getHostsSuccess(response, status) {
 	hostlist = response.result;
 	
+
 	if (hostlist.length == 0) {
 		openFailModal("No wireless access points were found.  Please check search settings or the Zabbix database.");
 		return;	
 	}
 	
+// Debug step
+	//console.log(hostlist);
+	//return;	
+	
 	// Blow away current AP list (yikes)
-	APdata = [];
+	APList = [];
 	$.each(hostlist, function (key, ahost) {
 		// examine the lat long data
 		theseCoords = false;
@@ -144,7 +150,7 @@ function getHostsSuccess(response, status) {
 	});
 	
 	// update the info
-	newAPData();
+	newAPdata();
 	
 }
 

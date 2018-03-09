@@ -34,7 +34,7 @@ $(document).ready(function(){
 	initializeEditTableRow();
 	initializeResetTable();*/
 	initializeMap();
-	initializeTestData();
+	//initializeTestData();
 	initializeEditAPModal();
 	initializePolling();
 	initializeSettingsModal();

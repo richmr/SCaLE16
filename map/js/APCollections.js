@@ -50,6 +50,8 @@ function updateCollections(yellowThreshold, redThreshold) {
 		}
 		$(this).addClass("active");
 	});
+	
+	updateConfigureButton();
 }
 
 function makeCollectionHeaderIDFromId(id) {
@@ -114,6 +116,16 @@ function addUnplacedAP(thisAP) {
 	// Add it and add needed data
 	$("#lastUnplacedAP").before(htmlstring);
 	$("#"+id).data("origID", thisAP["id"]);
-	
+		
+}
+
+function updateConfigureButton() {
+	// Updates the configure button with current count of AP needing configuration
+	var numAP = $(".collection-item", $("#unplacedAPDetailedData")).length
+	if (numAP > 0) {
+			$("#configure_mode").removeClass("blue lighten-2").addClass("yellow darken-2");
+	}	else {
+			$("#configure_mode").removeClass("yellow darken-2").addClass("blue lighten-2");
+	}
 	
 }

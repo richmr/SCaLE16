@@ -34,6 +34,11 @@ function initializePolling() {
 	$("#pollingRate").change(function () {
 		changedPollRate();	
 	});
+	
+	$("#refresh_data").click(function (event) {
+		console.log("Refresh clicked");
+		getWirelessAPHostGroups();
+	});
 }
 
 function changedPollRate() {

@@ -56,15 +56,15 @@
 				<!-- Active AP Detailed Data -->
 				<ul id="activeAPDetailedData" class="collapsible" data-collapsible="accordion">
 					<li>
-				      <div class="collapsible-header"><i class="material-icons">filter_drama</i>First</div>
-				      <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+				      <div class="collapsible-header">No AP data.  Please enable polling or click "Refresh Data"</div>
+				      <div class="collapsible-body"><span>No additional information</span></div>
 				    </li>
 					<div id="lastPlacedAP"></div>
 				</ul>
 				
 				<!-- Unplaced AP Detailed Data -->
 				<div id="unplacedAPDetailedData" class="collection" >
-					<a href="#!" class="collection-item active">Alvin</a>
+					<a href="#!" class="collection-item active">No AP data yet..</a>
 					<div id="lastUnplacedAP"></div>
 				</div>
 									
@@ -78,7 +78,7 @@
 				<fieldset>
 					<legend>Mode</legend>
 				<p><a id="monitor_mode" class="waves-effect waves-light btn blue lighten-2 white-text">Monitor</a></p>
-				<p><a id="configure_mode" class="waves-effect waves-light btn blue lighten-2 white-text">Configure</a></p>
+				<p><a id="configure_mode" class="waves-effect waves-light btn blue lighten-2 white-text"><span id="config_button_label">Configure</span></a></p>
 				</fieldset>
 				<p><a id="save_placement" class="waves-effect waves-light btn blue lighten-2 white-text">Save</a></p>
 				<fieldset><legend>Automatic Polling</legend>
@@ -102,7 +102,7 @@
 				
 							  </p>
 							 </fieldset>
-				<p><a id="sim_data" class="waves-effect waves-light btn blue lighten-2 white-text">Sim Data</a></p>
+				<p><a id="refresh_data" class="waves-effect waves-light btn blue lighten-2 white-text">Refresh Data</a></p>
 			</div>
 			
 			<!-- Archive Modal Definition -->
@@ -237,22 +237,14 @@
 		  </div>					
 		
 				
-			<!-- MVP Warning modal -->		    
-		    <div id="MVPAboutModal" class="modal">
-				<div id="MVPAboutModal-content" class="modal-content">
-			      <span id="MVPAboutModal-header"><h5>About Seats Local</h5></span>
-			      <p>The purpose of Seats is to allow you to plan the seating for a party you are hosting.  Each row represents a table, and you can drag and drop guests to the table you want.
-			      You can also just keep them stored in the "Unseated Guests" pool for now.  Use the color settings when you define your guests to help keep track of odd seating issues (like adults on the wrong table).</p>  
-			      <p>Click on the <i class="small material-icons action-icons">list</i> to get a nice seating list for your party</p>
-			      <p>This version of Seats is fully functional but only stores your party data on your local machine.</p>
-			      <p><h5 class="red-text">Please click the <i class="small material-icons action-icons">save</i>!</h5></p>
-			      <!-- <a href="https://goo.gl/4k5A9j" target="_blank">The Priorities manual can be found here</a></p> -->
-			      <p>Seats has only been tested in Chrome on a desktop.  Mobile touch screen tests have not gone well.</p>
-			      <p>Copyright 2018, Michael Rich</p>
-			      <p><a href="https://twitter.com/miketofet" target="_blank">Contact me on Twitter</a></p>
+			<!-- Fail modal -->		    
+		    <div id="failModal" class="modal">
+				<div id="failModal-content" class="modal-content">
+			      <span id="failModal-header"><h5 class="red-text">Error</h5></span>
+			      <p id="failMessage"></p>
 			        
 			   </div>
-			    <div id="MVPAboutModal-footer" class="modal-footer">
+			    <div id="failModal-footer" class="modal-footer">
 				   <a href="#!" class="modal-action modal-close waves-effect waves-green btn green white-text">Ok</a>
 			    </div>
 		    </div>
