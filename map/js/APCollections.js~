@@ -123,9 +123,9 @@ function updateConfigureButton() {
 	// Updates the configure button with current count of AP needing configuration
 	var numAP = $(".collection-item", $("#unplacedAPDetailedData")).length
 	if (numAP > 0) {
-			$("#configure_mode").removeClass("blue lighten-2").addClass("yellow");
+			$("#configure_mode").removeClass("blue lighten-2").addClass("yellow darken-2");
 	}	else {
-			$("#configure_mode").removeClass("yellow").addClass("blue lighten-2");
+			$("#configure_mode").removeClass("yellow darken-2").addClass("blue lighten-2");
 	}
 	
 }

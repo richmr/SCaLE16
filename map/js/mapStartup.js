@@ -21,18 +21,10 @@ $(document).ready(function(){
 	
 	
 	//initializeData();
-	/*if (wasDataSaved()) {
+	if (wasDataSaved()) {
 		loadAllData();
-	} else {
-		$("#MVPAboutModal").modal("open");
-	}
+	} 
 	
-	newData();
-	initializeSaveData();
-	initializeLoadData();
-	initializeEditProject();
-	initializeEditTableRow();
-	initializeResetTable();*/
 	initializeMap();
 	//initializeTestData();
 	initializeEditAPModal();
@@ -69,4 +61,4 @@ function exitPriorities() {
 	return "Seats data saved.";
 } 
 	 
-console.log("prioritiesStartup loaded");
+//console.log("prioritiesStartup loaded");

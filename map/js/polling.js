@@ -36,14 +36,14 @@ function initializePolling() {
 	});
 	
 	$("#refresh_data").click(function (event) {
-		console.log("Refresh clicked");
+		//console.log("Refresh clicked");
 		getWirelessAPHostGroups();
 	});
 }
 
 function changedPollRate() {
 	pollrate = Number($("#pollingRate").val());
-	console.log("Polling rate:" + pollrate);
+	//console.log("Polling rate:" + pollrate);
 }
 
 function clickedOnAutoPolling() {
@@ -59,13 +59,13 @@ function clickedOnAutoPolling() {
 
 function startPolling() {
 	// 
-	console.log("start poling");
+	//console.log("start poling");
 	iAmPolling = true;
 	pollForData();
 }
 
 function stopPolling() {
-	console.log("stop polling");
+	//console.log("stop polling");
 	iAmPolling = false;
 }
 
@@ -73,7 +73,7 @@ function pollForData() {
 	if (iAmPolling) {
 		if (mode === "monitor") {
 			// Don't poll in Configure mode.
-				console.log("Polling for data");  
+				//console.log("Polling for data");  
 				getWirelessAPHostGroups();
 				var delayTime = pollrate*60*1000
 				setTimeout(pollForData, delayTime);		

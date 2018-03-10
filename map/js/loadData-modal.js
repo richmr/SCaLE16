@@ -44,17 +44,17 @@ function loginToZabbix_screen() {
 }
 
 function zabbixAPICheckSuccess(response, status) {
-	console.log("APICheckSuccess: ");
+	//console.log("APICheckSuccess: ");
 	dataAnalysisSuccess("zabbix-apicheck");
 }
 
 function zabbixAPICheckFail(response, status) {
-	console.log("APICheckFail ");
+	//console.log("APICheckFail ");
 	dataAnalysisFail("zabbix-apicheck", zabServer.isError().data);
 }
 
 function zabbixAuthResponseSuccess(response, status) {
-	console.log("AuthResponseSuccess");
+	//console.log("AuthResponseSuccess");
 	dataAnalysisSuccess("zabbix-login");
 	$("#username").text(zab_username);
 	saveAllData();
@@ -62,7 +62,7 @@ function zabbixAuthResponseSuccess(response, status) {
 }
 
 function zabbixAuthResponseFail(response, status) {
-	console.log("AuthResponseFail");
+	//console.log("AuthResponseFail");
 	dataAnalysisFail("zabbix-login", zabServer.isError().data);
 	stopDataProgressBar();
 	$('#dataAnalysisModal').modal('getInstance').options["complete"] = function () {

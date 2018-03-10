@@ -171,7 +171,7 @@ function saveCoords(aphost) {
 	var params = {};
 	params["hostid"] = aphost.id;
 	if (aphost.mapCoord) {
-		params["inventory"] = {location_lat:aphost.mapCoord[0], location_lon:mapCoord[1]};
+		params["inventory"] = {location_lat:aphost.mapCoord[0], location_lon:aphost.mapCoord[1]};
 	} else {
 		params["inventory"] = {location_lat:"", location_lon:""};	
 	}

@@ -220,7 +220,8 @@ function removeAPMarker(id) {
 		// Reset map coords
 		thisAP = _.find(APList, ['id', id]);
 		thisAP["mapCoord"] = false;
-		newAPdata();	
+		newAPdata();
+		saveCoords(thisAP);	
 	}
 }
 

@@ -44,7 +44,7 @@ function updateCollections(yellowThreshold, redThreshold) {
 	// Activate clicking for the unplaced AP
 	$(".collection-item", $("#unplacedAPDetailedData")).click(function (event) {
 		// look for a current active element
-		console.log("Unplaced AP click event");
+		//console.log("Unplaced AP click event");
 		if (activeAP = $(".active", $("#unplacedAPDetailedData"))) {
 			$(activeAP).removeClass("active");
 		}

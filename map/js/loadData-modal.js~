@@ -64,7 +64,7 @@ function zabbixAuthResponseSuccess(response, status) {
 function zabbixAuthResponseFail(response, status) {
 	console.log("AuthResponseFail");
 	dataAnalysisFail("zabbix-login", zabServer.isError().data);
-	stopProgressBar();
+	stopDataProgressBar();
 	$('#dataAnalysisModal').modal('getInstance').options["complete"] = function () {
 		// This hack allows me to force the login screen to open again
 		$("#loginModal").modal("open");
