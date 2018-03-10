@@ -213,7 +213,8 @@ this.getApiVersion = function(params, success, error, complete) {
 }
 
 this.userLogin = function(params, success, error, complete) {
-
+	 params = {};
+	 
     // reset rpcid
     rpcid = 0;
 

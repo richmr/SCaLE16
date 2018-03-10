@@ -182,7 +182,7 @@ function saveCoords(aphost) {
 
 function saveCoordsSuccess(response, status) {
 	// That's nice
-	console.log("Coordinates saved");
+	//console.log("Coordinates saved");
 	
 }
 

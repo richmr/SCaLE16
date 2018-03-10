@@ -90,7 +90,7 @@ function clickedOnMonitorMode() {
 	$("#save_placement").hide();
 	$("#activeAPDetailedData").show();
 	mode = "monitor";
-	console.log("Monitor mode activated");
+	//console.log("Monitor mode activated");
 } 
 
 function clickedOnConfigureMode() {
@@ -100,7 +100,7 @@ function clickedOnConfigureMode() {
 	$("#save_placement").show();
 	$("#activeAPDetailedData").hide();
 	mode = "configure";
-	console.log("configure mode activated");
+	//console.log("configure mode activated");
 } 
 
 function mapClick(pixelCoords) {
@@ -113,7 +113,7 @@ function mapClick(pixelCoords) {
 
 function mapClickConfigure(pixelCoords) {
 	// Check if there is an unplaced AP already selected
-	console.log("mapClickConfigure.. click.");
+	//console.log("mapClickConfigure.. click.");
 	if (selectedAPid = $(".active", $("#unplacedAPDetailedData")).data("origID")) {
 		// Then we place a marker at the map location
 		// Just make it green.  Data will update eventually
@@ -137,7 +137,7 @@ function mapClickConfigure(pixelCoords) {
 function mapClickMonitor(pixelCoords) {
 	// Basically trigger the accordian in the data display
 	if (map.hasFeatureAtPixel(pixelCoords)) {
-		console.log("mapClickMonitor.. click.");
+		//console.log("mapClickMonitor.. click.");
 		var thisFeature = map.getFeaturesAtPixel(pixelCoords)[0];
 		// get the Id
 		var id = thisFeature.getId();
@@ -259,7 +259,7 @@ function markerTest(coord) {
 		return;
 	}
 	coord = map.getCoordinateFromPixel(coord);
-	console.log("Coords: "+coord);
+	//console.log("Coords: "+coord);
 	
 	var iconFeature = new ol.Feature({
         geometry: new ol.geom.Point(coord),

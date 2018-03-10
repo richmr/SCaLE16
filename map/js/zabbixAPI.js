@@ -28,7 +28,7 @@ function zabbixAPIInitialize() {
 	});
 	
 	// For testing
-	initializeZabbixAuth();	
+	//initializeZabbixAuth();	
 	
 	if (wasDataSaved()) {
 		loadAllData();
