@@ -123,6 +123,7 @@ function mapClickConfigure(pixelCoords) {
 		thisAP = _.find(APList, ['id', selectedAPid]);
 		thisAP["mapCoord"]=coord;
 		newAPdata();
+		saveCoords(thisAP);
 		$("#save_placement").removeClass("disabled");
 	} else if (map.hasFeatureAtPixel(pixelCoords)) {
 		// Pop open edit AP modal

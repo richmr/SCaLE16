@@ -64,7 +64,7 @@
 				
 				<!-- Unplaced AP Detailed Data -->
 				<div id="unplacedAPDetailedData" class="collection" >
-					<a href="#!" class="collection-item active">Alvin</a>
+					<a href="#!" class="collection-item active">No AP data yet..</a>
 					<div id="lastUnplacedAP"></div>
 				</div>
 									
@@ -78,7 +78,7 @@
 				<fieldset>
 					<legend>Mode</legend>
 				<p><a id="monitor_mode" class="waves-effect waves-light btn blue lighten-2 white-text">Monitor</a></p>
-				<p><a id="configure_mode" class="waves-effect waves-light btn blue lighten-2 white-text">Configure</a></p>
+				<p><a id="configure_mode" class="waves-effect waves-light btn blue lighten-2 white-text"><span id="config_button_label">Configure</span></a></p>
 				</fieldset>
 				<p><a id="save_placement" class="waves-effect waves-light btn blue lighten-2 white-text">Save</a></p>
 				<fieldset><legend>Automatic Polling</legend>

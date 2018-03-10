@@ -61,11 +61,25 @@ function startPolling() {
 	// 
 	console.log("start poling");
 	iAmPolling = true;
-	// Do an immediate poll
-	//pollForData();
+	pollForData();
 }
 
 function stopPolling() {
 	console.log("stop polling");
 	iAmPolling = false;
+}
+
+function pollForData() {
+	if (iAmPolling) {
+		if (mode === "monitor") {
+			// Don't poll in Configure mode.
+				console.log("Polling for data");  
+				getWirelessAPHostGroups();
+				var delayTime = pollrate*60*1000
+				setTimeout(pollForData, delayTime);		
+		}	else {
+			// But I still need to restart the poll
+			setTimeout(pollForData, delayTime);	
+		}
+	}
 }

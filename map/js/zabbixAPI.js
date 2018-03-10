@@ -145,8 +145,10 @@ function getHostsSuccess(response, status) {
 		
 		hostClientCount = 0
 		// Getting accurate client count not implemented yet
-		APList.push({id:ahost.hostid, host:ahost.host, mapCoord:theseCoords, currentClientCount:hostClientCount, notes:"Getting accurate client count not implemented yet"});
-		
+		// Status 1 = disabled
+		if (ahost.status != "1") {
+			APList.push({id:ahost.hostid, host:ahost.host, mapCoord:theseCoords, currentClientCount:hostClientCount, notes:"Getting accurate client count not implemented yet"});
+		}
 	});
 	
 	// update the info
@@ -161,4 +163,29 @@ function getHostsFail() {
 function openFailModal(msg) {
 	$("#failMessage").text(msg);
 	$("#failModal").modal("open");
+}
+
+function saveCoords(aphost) {
+	// Saves the coordinates for this hostid
+	// Expects the complete APList object in aphost
+	var params = {};
+	params["hostid"] = aphost.id;
+	if (aphost.mapCoord) {
+		params["inventory"] = {location_lat:aphost.mapCoord[0], location_lon:aphost.mapCoord[1]};
+	} else {
+		params["inventory"] = {location_lat:"", location_lon:""};	
+	}
+	
+	method = "host.update";
+	zabServer.sendAjaxRequest(method, params, saveCoordsSuccess, saveCoordsFail);
+}
+
+function saveCoordsSuccess(response, status) {
+	// That's nice
+	console.log("Coordinates saved");
+	
+}
+
+function saveCoordsFail() {
+	openFailModal("Failed to get save host coordinates:  " + zabServer.isError());
 }
