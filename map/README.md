@@ -7,6 +7,7 @@ Setup:
 - Clone or download and unzip this repo to a web served folder
 - Navigate to the url where the index.html file is.
 - Provide your Zabbix log in credentials and the full URL for the Zabbix API file
+- The Zabbix API url is usually http://yourdomain.com/zabbix/api_jsonrpc.php
 - Click "Settings" and set up the Host Group search term and method you want to use.  For instance if your wireless AP are all stored in a group called "My Wireless AP", put that as your search term.  If you have several groups, start them all with the same prefix.  For example something like: "ap_scale".  The map will locate them all.
 - Click either "Refresh Data" or  turn on Automatic Polling to load the available wireless AP
 - If you don't see the AP you are looking for, then your search term is wrong, or the device is not listed and enabled in Zabbix
